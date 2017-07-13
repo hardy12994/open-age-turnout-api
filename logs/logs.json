@@ -1,3 +1,22 @@
 {"level":"info","message":"[app] listening on 4001","timestamp":"2017-07-01T10:55:46.537Z"}
 {"level":"info","message":"[app] listening on 4932","timestamp":"2017-07-13T01:55:56.183Z"}
 {"level":"info","message":"[app] listening on 4932","timestamp":"2017-07-13T01:56:45.657Z"}
+{"level":"info","message":"[app] listening on 4932","timestamp":"2017-07-13T02:36:59.512Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:26.170Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connection 0 to localhost:27017 timed out]","timestamp":"2017-07-13T02:37:26.194Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:27.212Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:27.212Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:28.240Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:28.241Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:29.258Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:29.264Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:30.268Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:30.268Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:31.286Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:31.286Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:32.295Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:32.296Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:33.309Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:33.309Z"}
+{"level":"info","message":"[db] Again going to connect DB","timestamp":"2017-07-13T02:37:34.315Z"}
+{"level":"error","message":"[db] Mongoose default connection error: MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","timestamp":"2017-07-13T02:37:34.316Z"}

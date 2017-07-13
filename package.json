@@ -9,6 +9,8 @@
   "author": "hardeepsingh12994@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "express-app-generator": "0.0.54"
+    "config": "^1.26.1",
+    "express-app-generator": "0.0.6",
+    "mongoose": "^4.11.1"
   }
 }
