@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const unit = new mongoose.Schema({
 
-    name: String,
+    name: { type: String, required: true, trim: true },
     description: String,
     bucket: { type: mongoose.Schema.Types.ObjectId, ref: 'bucket', required: true },
     company: {

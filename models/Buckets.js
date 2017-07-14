@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const bucket = new mongoose.Schema({
 
-    name: String,
+    name: { type: String, required: true, trim: true },
     description: String,
     company: {
         name: String,
