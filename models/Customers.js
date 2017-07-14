@@ -15,4 +15,4 @@ customer.pre('save', function(next) {
     next();
 });
 
-mongoose.model('client', customer);
+mongoose.model('customer', customer);

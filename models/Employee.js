@@ -12,7 +12,8 @@ const employee = new mongoose.Schema({
         type: String,
         enum: [
             'active', 'inactive'
-        ]
+        ],
+        default: 'active'
     },
     organization: { type: mongoose.Schema.Types.ObjectId, ref: 'organization', required: true },
     created_At: { type: Date, default: Date.now },

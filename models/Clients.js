@@ -9,6 +9,13 @@ const client = new mongoose.Schema({
     state: { type: String, required: true },
     pincode: { type: String, required: true },
     phone: { type: String, required: true },
+    status: {
+        type: String,
+        enum: [
+            'active', 'inactive'
+        ],
+        default: 'active'
+    },
     created_At: { type: Date, default: Date.now },
     updated_At: { type: Date, default: Date.now }
 });

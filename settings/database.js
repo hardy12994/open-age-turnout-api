@@ -8,7 +8,7 @@ var logger = require('../helpers/logger')('db');
 module.exports.configure = () => {
 
     let connect = () => {
-        mongoose.connect(dbConf.url);
+        mongoose.connect(dbConf.url, { useMongoClient: true });
     };
     connect();
     var db = mongoose.connection;
