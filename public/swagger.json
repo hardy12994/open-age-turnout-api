@@ -1,0 +1,152 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Turnout API",
+        "description": "Move your app forward with the Turnout API",
+        "version": "1.0.0"
+    },
+    "host": "localhost:4932",
+    "schemes": ["http", "https"],
+    "basePath": "/api",
+    "produces": ["application/json"],
+    "paths": {
+        "/clients": {
+            "post": {
+                "summary": "Create Clients",
+                "description": "Create Clients",
+                "operationId": "create",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "First Time in TurnOut",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/clentReq"
+                    }
+                }],
+                "tags": [
+                    "Client"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/clients/{id}": {
+            "put": {
+                "summary": "update clients",
+                "description": "update clients",
+                "operationId": "put",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "client id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "tags": [
+                    "Client"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "summary": "Get My organization",
+                "description": "get organization",
+                "operationId": "get",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "my or client id",
+                    "required": true
+                }],
+                "tags": [
+                    "Client"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+
+        }
+    },
+
+    "definitions": {
+        "BugReq": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "device": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "clentReq": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "picUrl": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "pincode": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "isSuccess": {
+                    "type": "boolean"
+                },
+                "error || message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

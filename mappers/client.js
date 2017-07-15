@@ -4,6 +4,7 @@ let _ = require('underscore');
 
 exports.toModel = entity => {
     return {
+        id: entity.id,
         name: entity.name,
         picUrl: entity.picUrl,
         address: entity.address,
