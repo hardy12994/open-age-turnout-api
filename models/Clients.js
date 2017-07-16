@@ -1,5 +1,7 @@
 "use strict";
 const mongoose = require('mongoose');
+const findOrCreate = require('findorcreate-promise');
+
 
 const client = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
@@ -24,5 +26,5 @@ client.pre('save', function(next) {
     this.updated_At = Date.now();
     next();
 });
-
+mongoose.plugin(findOrCreate);
 mongoose.model('client', client);

@@ -5,6 +5,7 @@ const organization = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
     address: { type: String, required: true },
     state: { type: String, required: true },
+    city: { type: String, required: true },
     pincode: { type: String, required: true },
     phone: { type: String, required: true },
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'client', required: true },

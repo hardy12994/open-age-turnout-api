@@ -12,16 +12,16 @@ exports.create = (req, res) => {
         return res.failure('phone is Required');
     }
 
-    bluebird.resolve(db.client.findOne({ phone: model.phone }))
+    bluebird.resolve(db.client.findOrCreate({
+            phone: model.phone,
+            email: model.email
+        }, model))
         .then(client => {
-            if (client) {
-                throw 'client already register with this phone number';
-            }
-            return;
+            res.data(mapper.toModel(client.result));
         })
-        .then(() => new db.client(model).save())
-        .then(client => res.data(mapper.toModel(client)))
-        .catch(err => res.failure(err));
+        .catch(err => {
+            res.failure(err);
+        });
 };
 
 exports.get = (req, res) => {
@@ -50,7 +50,13 @@ exports.update = (req, res) => {
     let model = req.body;
 
     bluebird.resolve(db.client.findById(clientId))
-        .then(client => updater.entitiesUpdater(client, model))
+        .then(client => {
+            if (!client) {
+                bluebird.reject('no client found');
+            }
+            client = updater.entitiesUpdater(client, model);
+            return client.save();
+        })
         .then(client => res.data(mapper.toModel(client)))
         .catch(err => res.failure(err));
 };

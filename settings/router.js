@@ -29,4 +29,7 @@ module.exports.manager = app => {
     api.model('clients')
         .register('CRUD');
 
+    api.model('organizations')
+        .register('CRUD');
+
 };

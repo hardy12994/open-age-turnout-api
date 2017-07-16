@@ -13,6 +13,7 @@
     "bluebird": "^3.5.0",
     "config": "^1.26.1",
     "express-app-generator": "0.0.6",
+    "findorcreate-promise": "^1.2.0",
     "mongoose": "^4.11.1",
     "underscore": "^1.8.3"
   }

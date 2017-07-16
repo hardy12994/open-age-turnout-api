@@ -5,7 +5,7 @@
         "description": "Move your app forward with the Turnout API",
         "version": "1.0.0"
     },
-    "host": "localhost:4932",
+    "host": "localhost:9000",
     "schemes": ["http", "https"],
     "basePath": "/api",
     "produces": ["application/json"],
@@ -23,7 +23,7 @@
                     "description": "First Time in TurnOut",
                     "required": true,
                     "schema": {
-                        "$ref": "#/definitions/clentReq"
+                        "$ref": "#/definitions/clientReq"
                     }
                 }],
                 "tags": [
@@ -47,6 +47,14 @@
                 "consumes": ["application/json"],
                 "produces": ["application.json"],
                 "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "First Time in TurnOut",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/clientReq"
+                    }
+                }, {
                     "name": "id",
                     "in": "path",
                     "description": "client id",
@@ -91,6 +99,96 @@
                 }
             }
 
+        },
+        "/organizations": {
+            "post": {
+                "summary": "Create organizations",
+                "description": "Create organizations",
+                "operationId": "create",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "First Time in TurnOut",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/OrgReq"
+                    }
+                }],
+                "tags": [
+                    "Organizations"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/organizations/{id}": {
+            "put": {
+                "summary": "update Organizations",
+                "description": "update Organizations",
+                "operationId": "put",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "First Time in TurnOut",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/OrgReq"
+                    }
+                }, {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Organizations id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "tags": [
+                    "Organizations"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "summary": "Get My organization",
+                "description": "get organization",
+                "operationId": "get",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "my or Organizations id",
+                    "required": true
+                }],
+                "tags": [
+                    "Organizations"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+
         }
     },
 
@@ -111,7 +209,7 @@
                 }
             }
         },
-        "clentReq": {
+        "clientReq": {
             "type": "object",
             "properties": {
                 "name": {
@@ -133,6 +231,32 @@
                     "type": "string"
                 },
                 "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "OrgReq": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "pincode": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "client": {
                     "type": "string"
                 }
             }
