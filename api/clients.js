@@ -2,7 +2,7 @@
 let db = global.db;
 let bluebird = require('bluebird');
 let mapper = require('../mappers/client');
-let updator = require('../helpers/updator');
+let updater = require('../helpers/updater');
 
 exports.create = (req, res) => {
 
@@ -50,7 +50,7 @@ exports.update = (req, res) => {
     let model = req.body;
 
     bluebird.resolve(db.client.findById(clientId))
-        .then(client => updator.entitiesUpdator(client, model))
+        .then(client => updater.entitiesUpdater(client, model))
         .then(client => res.data(mapper.toModel(client)))
         .catch(err => res.failure(err));
 };

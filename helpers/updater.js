@@ -1,6 +1,6 @@
 "use strict";
 
-exports.entitiesUpdator = (oldModel, newModel) => {
+exports.entitiesUpdater = (oldModel, newModel) => {
 
     for (var index in newModel) {
         oldModel[index] = newModel[index];
