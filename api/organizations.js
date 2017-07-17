@@ -30,7 +30,7 @@ exports.create = (req, res) => {
         })
         .then(organization => {
             if (organization) {
-                return bluebird.reject('you already have one organization at this place');
+                return bluebird.reject('already have organization at this place');
             }
 
             return new db.organization(model).save();
