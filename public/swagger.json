@@ -39,6 +39,35 @@
                 }
             }
         },
+        "/clients/verify": {
+            "post": {
+                "summary": "Verify Client",
+                "description": "Verify Clients",
+                "operationId": "create",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/clientVerifyReq"
+                    }
+                }],
+                "tags": [
+                    "Client"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/clients/{id}": {
             "put": {
                 "summary": "update clients",
@@ -212,25 +241,23 @@
         "clientReq": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "picUrl": {
-                    "type": "string"
-                },
-                "address": {
-                    "type": "string"
-                },
+
                 "email": {
                     "type": "string"
                 },
-                "state": {
-                    "type": "string"
-                },
-                "pincode": {
-                    "type": "string"
-                },
+
                 "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "clientVerifyReq": {
+            "type": "object",
+            "properties": {
+                "client": {
+                    "type": "string"
+                },
+                "pin": {
                     "type": "string"
                 }
             }

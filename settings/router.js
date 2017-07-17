@@ -29,6 +29,13 @@ module.exports.manager = app => {
     api.model('clients')
         .register('CRUD');
 
+    api.model('clients')
+        .register({
+            action: 'POST',
+            url: '/verify',
+            method: 'verifyPin',
+        });
+
     api.model('organizations')
         .register('CRUD');
 

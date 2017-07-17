@@ -4,19 +4,17 @@ const findOrCreate = require('findorcreate-promise');
 
 
 const client = new mongoose.Schema({
-    name: { type: String, required: true, trim: true },
+    name: { type: String, trim: true },
     picUrl: String,
-    address: { type: String, required: true },
     email: { type: String, required: true },
-    state: { type: String, required: true },
-    pincode: { type: String, required: true },
     phone: { type: String, required: true },
+    pin: String,
     status: {
         type: String,
         enum: [
-            'active', 'inactive'
+            'active', 'inactive', 'inComplete'
         ],
-        default: 'active'
+        default: 'inComplete'
     },
     created_At: { type: Date, default: Date.now },
     updated_At: { type: Date, default: Date.now }
