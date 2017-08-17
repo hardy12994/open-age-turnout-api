@@ -7,6 +7,7 @@ exports.toModel = entity => {
         id: entity.id,
         name: entity.name,
         picUrl: entity.picUrl,
+        status: entity.status,
         address: entity.address,
         email: entity.email,
         state: entity.state,

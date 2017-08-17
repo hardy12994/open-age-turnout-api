@@ -8,6 +8,10 @@ const employee = new mongoose.Schema({
     pincode: String,
     phone: { type: Boolean, unique: true },
     admin: { type: Boolean, default: false },
+    abilities: {
+        read: { type: Boolean, default: false },
+        write: { type: Boolean, default: false }
+    },
     status: {
         type: String,
         enum: [

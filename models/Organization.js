@@ -7,6 +7,7 @@ const organization = new mongoose.Schema({
     state: { type: String, required: true },
     city: { type: String, required: true },
     pincode: { type: String, required: true },
+    picUrl: String,
     phone: { type: String, required: true },
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'client', required: true },
     created_At: { type: Date, default: Date.now },
