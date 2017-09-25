@@ -5,6 +5,7 @@ let mapper = require('../mappers/client');
 let updater = require('../helpers/updater');
 let sms = require('../providers/sms');
 let email = require('../providers/email');
+let auth = require('../middlewares/aunthentication');
 var logger = require('../helpers/logger')('clients');
 var async = require('async');
 
@@ -79,7 +80,11 @@ exports.create = (req, res) => {
 
         })
         .then(client => {
-            res.data(mapper.toModel(client.result));
+            client.result.token = auth.getToken({ client: client.result.id });
+            return client.result.save();
+        })
+        .then(client => {
+            res.data(mapper.toModel(client));
         })
         .catch(err => {
             res.failure(err);
@@ -173,33 +178,22 @@ exports.verifyPin = (req, res) => {
         return res.failure('incorrect activation code');
     }
 
-    let clientId = req.client.id;
+    let client = req.client;
 
-    db.client.findById(clientId)
+    if (!client) {
+        res.failure('client not found');
+    }
+
+    if (client.pin !== req.body.pin) {
+        if (req.body.pin !== "998877") {
+            res.failure('incorrect activation code');
+        }
+    }
+
+    client.status = "active";
+    client.pin = null;
+    return client.save()
         .then(client => {
-            if (!client) {
-                throw ('client not found');
-            }
-            if (client.pin !== req.body.pin) {
-                if (req.body.pin !== "998877") {
-                    throw ('incorrect activation code');
-                }
-            }
-            client.status = "active";
-            client.pin = null;
-            return client.save();
-        })
-        // .then(client => {
-        //     if (!client.temporary) {
-        //         return client.save();
-        //     }
-
-    //     for (var key in client.temporary) {
-    //         client[key] = client.temporary[key];
-    //     }
-    //     return client.save();
-    // })
-    .then(client => {
             res.success('pin successfully verified');
         })
         .catch(err => {
