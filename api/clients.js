@@ -10,7 +10,7 @@ var async = require('async');
 
 let notifyWithSms = client => {
     let pin = Math.floor(Math.random() * 1000000) + 100000;
-    let message = `Welcome /\\ .\nPlease verify your OTP ${pin}.`;
+    let message = `Welcome to YOLO. Please verify your OTP ${pin}.`;
     client.pin = pin;
 
     let sendSms = sms.send(client.phone, message);
@@ -63,7 +63,7 @@ exports.create = (req, res) => {
             let notifire;
 
             if (!client.created) {
-                return client;
+                throw 'You already present in Yolo please LogIn';
             }
 
             if (model.email) {
@@ -72,10 +72,6 @@ exports.create = (req, res) => {
 
             if (model.phone) {
                 notifire = notifyWithSms;
-            }
-
-            if (!notifire) {
-                return client;
             }
 
             return notifire(client.result)
@@ -108,6 +104,7 @@ exports.get = (req, res) => {
 exports.search = (req, res) => {
 
     // turnout admin
+    // me
 
 };
 
@@ -176,7 +173,7 @@ exports.verifyPin = (req, res) => {
         return res.failure('incorrect activation code');
     }
 
-    let clientId = req.body.client;
+    let clientId = req.client.id;
 
     db.client.findById(clientId)
         .then(client => {
@@ -190,19 +187,19 @@ exports.verifyPin = (req, res) => {
             }
             client.status = "active";
             client.pin = null;
-            return client;
-        })
-        .then(client => {
-            if (!client.temporary) {
-                return client.save();
-            }
-
-            for (var key in client.temporary) {
-                client[key] = client.temporary[key];
-            }
             return client.save();
         })
-        .then(client => {
+        // .then(client => {
+        //     if (!client.temporary) {
+        //         return client.save();
+        //     }
+
+    //     for (var key in client.temporary) {
+    //         client[key] = client.temporary[key];
+    //     }
+    //     return client.save();
+    // })
+    .then(client => {
             res.success('pin successfully verified');
         })
         .catch(err => {

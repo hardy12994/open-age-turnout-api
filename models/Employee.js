@@ -2,7 +2,10 @@
 const mongoose = require('mongoose');
 
 const employee = new mongoose.Schema({
-    name: { type: String, required: true, trim: true },
+    username: { type: String, required: true, trim: true, unique: true },
+    password: { type: String },
+    token: String,
+    name: { type: String, trim: true },
     address: String,
     state: String,
     pincode: String,

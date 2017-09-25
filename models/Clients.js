@@ -9,7 +9,8 @@ const client = new mongoose.Schema({
     email: { type: String, trim: true },
     phone: { type: String, trim: true },
     pin: String,
-    temporary: Object,
+    // temporary: Object,
+    token: String,
     status: {
         type: String,
         enum: [

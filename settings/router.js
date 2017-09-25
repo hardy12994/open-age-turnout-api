@@ -1,5 +1,6 @@
 "use strict";
-const fs = require('fs');
+let fs = require('fs');
+let auth = require('../middlewares/aunthentication');
 
 module.exports.manager = app => {
 
@@ -17,14 +18,10 @@ module.exports.manager = app => {
             res.write(data);
             res.end();
         });
-
     });
 
 
     let api = app.appRouter;
-
-    api.model('users')
-        .register('REST');
 
     api.model('clients')
         .register('CRUD');
@@ -34,7 +31,20 @@ module.exports.manager = app => {
             action: 'POST',
             url: '/verify',
             method: 'verifyPin',
+            filter: auth.clientRequired
         });
+
+    api.model('employees')
+        .register('REST');
+
+    api.model('employees')
+        .register({
+            action: 'POST',
+            url: '/signUp',
+            method: 'signUp'
+        });
+
+
 
     api.model('organizations')
         .register('CRUD');
