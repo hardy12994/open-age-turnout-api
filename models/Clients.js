@@ -4,8 +4,8 @@ const findOrCreate = require('findorcreate-promise');
 
 
 const client = new mongoose.Schema({
-    name: { type: String, trim: true },
-    picUrl: { type: String, trim: true },
+    // name: { type: String, trim: true },
+    // picUrl: { type: String, trim: true },
     email: { type: String, trim: true },
     phone: { type: String, trim: true },
     pin: String,
