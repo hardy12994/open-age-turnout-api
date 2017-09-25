@@ -54,6 +54,11 @@
                     "schema": {
                         "$ref": "#/definitions/clientVerifyReq"
                     }
+                }, {
+                    "name": "client-token",
+                    "in": "header",
+                    "description": "Token",
+                    "required": true
                 }],
                 "tags": [
                     "Client"
@@ -117,6 +122,148 @@
                 }],
                 "tags": [
                     "Client"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+
+        },
+        "/employees/signUp": {
+            "post": {
+                "summary": "Signup Employees",
+                "description": "Signup Employees",
+                "operationId": "create",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Signup employee",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/employeeSignUpReq"
+                    }
+                }, {
+                    "name": "client-token",
+                    "in": "header",
+                    "description": "Token",
+                    "required": true
+                }],
+                "tags": [
+                    "Employee"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/employees": {
+            "post": {
+                "summary": "Create Employee",
+                "description": "Create Employees",
+                "operationId": "create",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "create employee",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/employeeReq"
+                    }
+                }],
+                "tags": [
+                    "Employee"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get Employees",
+                "description": "get Employees",
+                "operationId": "get",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [],
+                "tags": [
+                    "Employee"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{id}": {
+            "put": {
+                "summary": "update Employee",
+                "description": "update Employee",
+                "operationId": "put",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/OrgReq"
+                    }
+                }, {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Employee id",
+                    "required": true,
+                    "type": "string"
+                }],
+                "tags": [
+                    "Employee"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "summary": "Get me as Employee",
+                "operationId": "get",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "my or Employee id",
+                    "required": true
+                }],
+                "tags": [
+                    "Employee"
                 ],
                 "responses": {
                     "default": {
@@ -241,12 +388,21 @@
         "clientReq": {
             "type": "object",
             "properties": {
-
                 "email": {
                     "type": "string"
                 },
-
                 "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "employeeSignUpReq": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

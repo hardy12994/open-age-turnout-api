@@ -35,18 +35,17 @@ module.exports.manager = app => {
         });
 
     api.model('employees')
-        .register('REST');
+        .register('REST', auth.employeeRequired);
 
     api.model('employees')
         .register({
             action: 'POST',
             url: '/signUp',
-            method: 'signUp'
+            method: 'signUp',
+            filter: auth.clientRequired
         });
 
-
-
     api.model('organizations')
-        .register('CRUD');
+        .register('REST');
 
 };
