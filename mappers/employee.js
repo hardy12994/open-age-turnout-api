@@ -8,6 +8,7 @@ exports.toModel = entity => {
         name: entity.name,
         username: entity.username,
         picUrl: entity.picUrl,
+        admin: entity.admin,
         status: entity.status,
         address: entity.address,
         email: entity.email,
@@ -18,6 +19,14 @@ exports.toModel = entity => {
         created_At: entity.created_At,
         updated_At: entity.updated_At
     };
+};
+
+exports.fullModel = entity => {
+
+    let model = exports.toModel(entity);
+    model.token = entity.token;
+    return model;
+
 };
 
 exports.toSearchModel = entities => {
