@@ -12,29 +12,16 @@ let extractTokenFields = (token, req, res, cb) => {
         ignoreExpiration: true
     }, (err, claims) => {
         if (err) {
-            return res.failure('invalid token.');
+            return cb('invalid token.');
         }
 
         if (!claims.client && !claims.employee) {
-            return res.failure('invalid token.');
+            return cb('invalid token.');
         }
         cb(null, claims);
     });
 };
 
-let requireToken = (req, res) => {
-
-    let token = req.headers['x-access-token'] || req.body.token || req.query.token;
-
-    if (!token) {
-        return res.status(403).send({
-            success: false,
-            message: 'token is required.'
-        });
-    }
-    return token;
-
-};
 
 exports.getToken = payload => {
 
@@ -46,7 +33,14 @@ exports.getToken = payload => {
 
 exports.employeeRequired = (req, res, next) => {
 
-    let token = requireToken(req, res);
+    let token = req.headers['x-access-token'] || req.body['x-access-token'] || req.query['x-access-token'];
+
+    if (!token) {
+        res.status(403).send({
+            success: false,
+            message: 'token is required.'
+        });
+    }
 
     async.waterfall([
         function(cb) {
@@ -55,24 +49,33 @@ exports.employeeRequired = (req, res, next) => {
         function(claims, cb) {
             db.employee.findById(claims.employee, (err, employee) => {
                 if (err) {
-                    return res.failure(err);
+                    return cb(err);
                 }
-
                 if (!employee) {
-                    return res.failure('employee not found');
+                    return cb('employee not found');
                 }
-
-                res.employee = employee;
+                req.employee = employee;
                 cb(null);
             });
         }
-    ], next());
-
+    ], (err) => {
+        if (err) {
+            return res.failure(err);
+        }
+        next();
+    });
 };
 
 exports.clientRequired = (req, res, next) => {
 
-    let token = requireToken(req, res);
+    let token = req.headers['client-token'] || req.body['client-token'] || req.query['client-token'];
+
+    if (!token) {
+        res.status(403).send({
+            success: false,
+            message: 'token is required.'
+        });
+    }
 
     async.waterfall([
         function(cb) {
@@ -81,14 +84,19 @@ exports.clientRequired = (req, res, next) => {
         function(claims, cb) {
             db.client.findById(claims.client, (err, client) => {
                 if (err) {
-                    return res.failure(err);
+                    return cb(err);
                 }
                 if (!client) {
-                    return res.failure('client not found');
+                    return cb('client not found');
                 }
-                res.client = client;
+                req.client = client;
                 cb(null);
             });
         }
-    ], next());
+    ], (err) => {
+        if (err) {
+            return res.failure(err);
+        }
+        next();
+    });
 };
