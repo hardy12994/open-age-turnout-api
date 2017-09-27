@@ -22,7 +22,6 @@ let extractTokenFields = (token, req, res, cb) => {
     });
 };
 
-
 exports.getToken = payload => {
 
     return jwt.sign(payload, authConfig.secret, {
@@ -36,7 +35,7 @@ exports.employeeRequired = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.body['x-access-token'] || req.query['x-access-token'];
 
     if (!token) {
-        res.status(403).send({
+        return res.status(403).send({
             success: false,
             message: 'token is required.'
         });
@@ -71,7 +70,7 @@ exports.clientRequired = (req, res, next) => {
     let token = req.headers['client-token'] || req.body['client-token'] || req.query['client-token'];
 
     if (!token) {
-        res.status(403).send({
+        return res.status(403).send({
             success: false,
             message: 'token is required.'
         });
