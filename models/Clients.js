@@ -10,7 +10,7 @@ const client = new mongoose.Schema({
     phone: { type: String, trim: true },
     pin: String,
     // temporary: Object,
-    token: String,
+    // token: String,
     status: {
         type: String,
         enum: [

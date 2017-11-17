@@ -19,5 +19,30 @@
             "json": false,
             "colorize": true
         }
+    },
+    "pincode": {
+        "url": "http://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6",
+        "format": "json",
+        "api_key": "579b464db66ec23bdd000001c565e48893fc44ea5446564b49f90f7f"
+    },
+    "routesms": {
+        "userName": "Mindfult",
+        "url": "http://sms6.routesms.com:8080/bulksms/bulksms",
+        "password": "XFh00YrC",
+        "type": "0",
+        "dlr": "1",
+        "source": "ALEGOS"
+    },
+    "mailer": {
+        "provider": "mailgun",
+        "api_key": "key-282fc812c1d12ad036bcd40e566289f3",
+        "host": "smtp.mailgun.org",
+        "domain": "applegos.in",
+        "adminEmail": "ronak12994@gmail.com"
+    },
+    "auth": {
+        "secret": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ7",
+        "tokenPeriod": "1450h"
     }
+
 }

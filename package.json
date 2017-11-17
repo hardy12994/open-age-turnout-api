@@ -1,25 +1,26 @@
 {
-  "name": "turnout-api",
-  "version": "0.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "hardeepsingh12994@gmail.com",
-  "license": "ISC",
-  "dependencies": {
-    "angular-swagger-ui": "^0.4.1",
-    "bluebird": "^3.5.0",
-    "config": "^1.26.2",
-    "express-app-generator": "0.0.6",
-    "findorcreate-promise": "^1.2.0",
-    "handlebars": "^4.0.10",
-    "jsonwebtoken": "^8.0.1",
-    "mailgun-js": "^0.13.1",
-    "moment": "^2.18.1",
-    "mongoose": "^4.11.1",
-    "node-rest-client-promise": "^2.0.0",
-    "underscore": "^1.8.3"
-  }
+    "name": "turnout-api",
+    "version": "0.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "hardeepsingh12994@gmail.com",
+    "license": "ISC",
+    "dependencies": {
+        "angular-swagger-ui": "^0.4.1",
+        "bluebird": "^3.5.0",
+        "config": "^1.26.2",
+        "express-app-generator": "0.0.6",
+        "findorcreate-promise": "^1.2.0",
+        "handlebars": "^4.0.10",
+        "jsonwebtoken": "^8.0.1",
+        "mailgun-js": "^0.13.1",
+        "moment": "^2.18.1",
+        "mongoose": "^4.11.1",
+        "node-rest-client": "^3.1.0",
+        "node-rest-client-promise": "^2.0.0",
+        "underscore": "^1.8.3"
+    }
 }

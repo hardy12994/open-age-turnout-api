@@ -54,11 +54,6 @@
                     "schema": {
                         "$ref": "#/definitions/clientVerifyReq"
                     }
-                }, {
-                    "name": "client-token",
-                    "in": "header",
-                    "description": "Token",
-                    "required": true
                 }],
                 "tags": [
                     "Client"
@@ -142,19 +137,16 @@
                 "consumes": ["application/json"],
                 "produces": ["application.json"],
                 "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "description": "Signup employee",
-                    "required": true,
-                    "schema": {
-                        "$ref": "#/definitions/employeeSignUpReq"
+                        "name": "body",
+                        "in": "body",
+                        "description": "Signup employee",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/employeeSignUpReq"
+                        }
                     }
-                }, {
-                    "name": "client-token",
-                    "in": "header",
-                    "description": "Token",
-                    "required": true
-                }],
+
+                ],
                 "tags": [
                     "Employee"
                 ],
@@ -291,6 +283,36 @@
                     "schema": {
                         "$ref": "#/definitions/OrgReq"
                     }
+                }, {
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "TOKEN",
+                    "required": true
+                }],
+                "tags": [
+                    "Organizations"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "summary": "Get All organizations",
+                "description": "get organizations",
+                "operationId": "get",
+                "consumes": ["application/json"],
+                "produces": ["application.json"],
+                "parameters": [{
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "TOKEN",
+                    "required": true
                 }],
                 "tags": [
                     "Organizations"
@@ -399,6 +421,14 @@
         "employeeSignUpReq": {
             "type": "object",
             "properties": {
+                "client": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "username": {
                     "type": "string"
                 },
@@ -411,7 +441,12 @@
             "type": "object",
             "properties": {
                 "client": {
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "pin": {
                     "type": "string"
@@ -437,9 +472,6 @@
                     "type": "string"
                 },
                 "state": {
-                    "type": "string"
-                },
-                "client": {
                     "type": "string"
                 }
             }

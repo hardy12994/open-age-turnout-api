@@ -15,7 +15,7 @@ let extractTokenFields = (token, req, res, cb) => {
             return cb('invalid token.');
         }
 
-        if (!claims.client && !claims.employee) {
+        if (!claims.employee) {
             return cb('invalid token.');
         }
         cb(null, claims);
@@ -65,37 +65,37 @@ exports.employeeRequired = (req, res, next) => {
     });
 };
 
-exports.clientRequired = (req, res, next) => {
+// exports.clientRequired = (req, res, next) => {
 
-    let token = req.headers['client-token'] || req.body['client-token'] || req.query['client-token'];
+//     let token = req.headers['client-token'] || req.body['client-token'] || req.query['client-token'];
 
-    if (!token) {
-        return res.status(403).send({
-            success: false,
-            message: 'token is required.'
-        });
-    }
+//     if (!token) {
+//         return res.status(403).send({
+//             success: false,
+//             message: 'token is required.'
+//         });
+//     }
 
-    async.waterfall([
-        function(cb) {
-            extractTokenFields(token, req, res, cb);
-        },
-        function(claims, cb) {
-            db.client.findById(claims.client, (err, client) => {
-                if (err) {
-                    return cb(err);
-                }
-                if (!client) {
-                    return cb('client not found');
-                }
-                req.client = client;
-                cb(null);
-            });
-        }
-    ], (err) => {
-        if (err) {
-            return res.failure(err);
-        }
-        next();
-    });
-};
+//     async.waterfall([
+//         function(cb) {
+//             extractTokenFields(token, req, res, cb);
+//         },
+//         function(claims, cb) {
+//             db.client.findById(claims.client, (err, client) => {
+//                 if (err) {
+//                     return cb(err);
+//                 }
+//                 if (!client) {
+//                     return cb('client not found');
+//                 }
+//                 req.client = client;
+//                 cb(null);
+//             });
+//         }
+//     ], (err) => {
+//         if (err) {
+//             return res.failure(err);
+//         }
+//         next();
+//     });
+// };

@@ -11,10 +11,9 @@ const employee = new mongoose.Schema({
     pincode: String,
     phone: String,
     email: String,
-    admin: { type: Boolean, default: false },
     abilities: {
-        read: { type: Boolean, default: false },
-        write: { type: Boolean, default: false }
+        read: { type: Boolean, default: false }, // for client - true
+        write: { type: Boolean, default: false } // for client - true
     },
     status: {
         type: String,
@@ -23,7 +22,12 @@ const employee = new mongoose.Schema({
         ],
         default: 'active'
     },
-    organization: { type: mongoose.Schema.Types.ObjectId, ref: 'organization' },
+    organizations: [{
+        admin: Boolean,
+        activeHere: Boolean,
+        created_At: { type: Date, default: Date.now },
+        organization: { type: mongoose.Schema.Types.ObjectId, ref: 'organization' }
+    }],
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'client' },
     created_At: { type: Date, default: Date.now },
     updated_At: { type: Date, default: Date.now }

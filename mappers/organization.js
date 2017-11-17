@@ -15,19 +15,19 @@ exports.toModel = entity => {
         updated_At: entity.updated_At
     };
 
-    if (entity.client._doc) {
-        model.client = {
-            id: entity.client.id,
-            name: entity.client.name,
-            picUrl: entity.client.picUrl,
-            address: entity.client.address,
-            email: entity.client.email,
-            state: entity.client.state,
-            pincode: entity.client.pincode,
-            phone: entity.client.phone
+    if (entity.employee._doc) {
+        model.employee = {
+            id: entity.employee.id,
+            name: entity.employee.name,
+            picUrl: entity.employee.picUrl,
+            address: entity.employee.address,
+            email: entity.employee.email,
+            state: entity.employee.state,
+            pincode: entity.employee.pincode,
+            phone: entity.employee.phone
         };
     } else {
-        model.client = entity.client.toString();
+        model.employee = entity.employee.toString();
     }
 
     return model;

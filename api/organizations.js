@@ -7,34 +7,50 @@ let updater = require('../helpers/updater');
 exports.create = (req, res) => {
 
     let model = req.body;
+    model.employee = req.employee;
 
-    if (!model.client) {
-        return res.failure('client is Required');
-    }
-
-    bluebird.resolve(db.client.findById(model.client))
-        .then(client => {
-            if (!client) {
-                return bluebird.reject('no client found');
-            }
-            model.client = client;
-
-            return bluebird.resolve(db.organization.findOne({
-                name: {
-                    $regex: model.name,
-                    $options: 'ig'
-                },
-                phone: model.phone,
-                pincode: model.pincode
-            }));
-        })
+    bluebird.resolve(db.organization.findOne({
+            name: {
+                $regex: model.name,
+                $options: 'ig'
+            },
+            employee: model.employee.id,
+            // phone: model.phone,
+            // pincode: model.pincode
+        }))
         .then(organization => {
             if (organization) {
-                return bluebird.reject('already have organization at this place');
+
+                if (model.phone && organization.phone === model.phone.trim()) {
+                    return bluebird.reject('Same phone not be use is diffrent organizations.');
+                }
+
+                if (organization.name === model.name.trim()) {
+                    return bluebird.reject('Same name not be use is diffrent organizations.');
+                }
+
+                return new db.organization(model).save();
+
+                // return bluebird.reject('Already have organization at this place');
             }
 
             return new db.organization(model).save();
         })
+        // .then(organization => {
+        //     return new db.employee({
+        //             name: organization.client.name || '',
+        //             phone: organization.client.phone || '',
+        //             status: 'active',
+        //             organization: organization,
+        //             admin: true,
+        //             abilities: {
+        //                 read: true,
+        //                 write: true
+        //             }
+        //         })
+        //         .save()
+        //         .then(() => organization);
+        // })
         .then(organization => res.data(mapper.toModel(organization)))
         .catch(err => res.failure(err));
 };
@@ -55,9 +71,13 @@ exports.get = (req, res) => {
 
 exports.search = (req, res) => {
 
-    // get by client only
-    //needs token
+    let employee = req.employee;
 
+    bluebird.resolve(db.organization.find({ employee: employee }))
+        .then(organizations =>
+            res.page(mapper.toSearchModel(organizations))
+        )
+        .catch(err => res.failure(err));
 };
 
 exports.update = (req, res) => {

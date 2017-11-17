@@ -12,22 +12,27 @@ let auth = require('../middlewares/aunthentication');
 exports.signUp = (req, res) => {
 
     let model = req.body;
-    let client = req.client;
 
-    db.employee.findOne({
-            username: model.username
-        })
-        .then(emp => {
-            if (emp) {
-                throw 'username already exist pleasse try another one';
+    bluebird.all([
+            db.employee.findOne({
+                username: model.username
+            }),
+            db.client.findById(model.client.id)
+        ])
+        .spread((employee, client) => {
+            if (employee) {
+                throw 'Username already exist pleasse try another one';
             }
+            if (!client) {
+                throw 'client not found';
+            }
+
             return new db.employee({
                 username: model.username,
                 password: model.password,
                 phone: client.phone,
                 email: client.email,
-                client: client,
-                admin: true,
+                client: client.id,
                 abilities: {
                     write: true,
                     read: true
@@ -35,7 +40,9 @@ exports.signUp = (req, res) => {
             }).save();
         })
         .then(employee => {
-            employee.token = auth.getToken({ employee: employee.id });
+            employee.token = auth.getToken({
+                employee: employee.id
+            });
             return employee.save();
         })
         .then(employee => res.data(mapper.fullModel(employee)))
@@ -57,7 +64,9 @@ exports.create = (req, res) => {
             return new db.employee(model).save();
         })
         .then(employee => {
-            employee.token = auth.getToken({ employee: employee.id });
+            employee.token = auth.getToken({
+                employee: employee.id
+            });
             return employee.save();
         })
         .then(employee => mapper.toModel(employee))
@@ -123,7 +132,9 @@ exports.delete = (req, res) => {
 
     let employeeId = req.params.id;
 
-    bluebird.resolve(db.employee.remove({ _id: employeeId }))
+    bluebird.resolve(db.employee.remove({
+            _id: employeeId
+        }))
         .then(employee => {
             if (!employee) {
                 throw 'employee not found';

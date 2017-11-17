@@ -13,7 +13,7 @@ exports.toModel = entity => {
         state: entity.state,
         pincode: entity.pincode,
         phone: entity.phone,
-        token: entity.token,
+        // token: entity.token,
         created_At: entity.created_At,
         updated_At: entity.updated_At
     };

@@ -1,6 +1,8 @@
 "use strict";
 let fs = require('fs');
 let auth = require('../middlewares/aunthentication');
+let restClient = require('node-rest-client').Client;
+let client = new restClient();
 
 module.exports.manager = app => {
 
@@ -30,8 +32,8 @@ module.exports.manager = app => {
         .register({
             action: 'POST',
             url: '/verify',
-            method: 'verifyPin',
-            filter: auth.clientRequired
+            method: 'verifyPin'
+                // filter: auth.clientRequired
         });
 
     api.model('employees')
@@ -46,6 +48,12 @@ module.exports.manager = app => {
         });
 
     api.model('organizations')
-        .register('REST');
+        .register('REST', auth.employeeRequired);
 
+    api.model('pincodes')
+        .register({
+            action: 'GET',
+            url: '/:pin',
+            method: 'get'
+        });
 };

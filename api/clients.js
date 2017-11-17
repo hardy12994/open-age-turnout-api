@@ -10,7 +10,7 @@ var logger = require('../helpers/logger')('clients');
 var async = require('async');
 
 let notifyWithSms = client => {
-    let pin = Math.floor(Math.random() * 1000000) + 100000;
+    let pin = Math.floor(Math.random() * 100000) + 100000;
     let message = `Welcome to YOLO. Please verify your OTP ${pin}.`;
     client.pin = pin;
 
@@ -46,7 +46,7 @@ exports.create = (req, res) => {
     let query = {};
 
     if ((!model.phone && !model.email) || (!model.email && !model.phone)) {
-        return res.failure('phone or email is Required');
+        return res.failure('Phone or Email is Required');
     }
 
     if (model.phone) {
@@ -79,12 +79,12 @@ exports.create = (req, res) => {
                 .then(() => client);
 
         })
+        // .then(client => {
+        //     client.result.token = auth.getToken({ client: client.result.id });
+        //     return client.result.save();
+        // })
         .then(client => {
-            client.result.token = auth.getToken({ client: client.result.id });
-            return client.result.save();
-        })
-        .then(client => {
-            res.data(mapper.toModel(client));
+            res.data(mapper.toModel(client.result));
         })
         .catch(err => {
             res.failure(err);
@@ -174,30 +174,40 @@ exports.delete = (req, res) => {
 
 exports.verifyPin = (req, res) => {
 
+
+    var clientId = req.body.client.id;
+
     if (req.body.pin.length !== 6) {
         return res.failure('incorrect activation code');
     }
 
-    let client = req.client;
+    //TODO need swagger change -clientId in params
 
-    if (!client) {
-        res.failure('client not found');
-    }
-
-    if (client.pin !== req.body.pin) {
-        if (req.body.pin !== "998877") {
-            res.failure('incorrect activation code');
-        }
-    }
-
-    client.status = "active";
-    client.pin = null;
-    return client.save()
+    db.client.findById(clientId)
         .then(client => {
-            res.success('pin successfully verified');
+            if (!client) {
+                throw ('client not found');
+            }
+
+            if (client.status === 'active') {
+                throw ('OTP already used.');
+            }
+
+            if (client.pin !== req.body.pin) {
+                if (req.body.pin !== "998877") {
+                    throw ('incorrect activation code');
+                }
+            }
+
+            client.status = "active";
+            client.pin = null;
+            return client.save();
+        })
+        .then(client => {
+            // res.success('pin successfully verified');
+            res.data(mapper.toModel(client));
         })
         .catch(err => {
             res.failure(err);
         });
-
 };
